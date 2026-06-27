@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Trænings Tracker</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f13;
+      --surface: #1c1c24;
+      --card: #252530;
+      --accent: #6c63ff;
+      --accent2: #ff6584;
+      --text: #f0f0f5;
+      --muted: #888899;
+      --border: #2e2e3a;
+      --success: #4ade80;
+      --radius: 14px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      z-index: 100;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    nav button {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--muted);
+      padding: 12px 0 10px;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: color .2s;
+    }
+    nav button.active { color: var(--accent); }
+    nav button svg { width: 22px; height: 22px; }
+
+    /* PAGES */
+    .page { display: none; padding: 20px 16px; max-width: 480px; margin: 0 auto; }
+    .page.active { display: block; }
+
+    h1 { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+    .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    /* CARDS */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 14px;
+    }
+
+    /* EXERCISE INPUT */
+    .exercise-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .exercise-label {
+      flex: 1;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .exercise-label span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .counter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .counter button {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s;
+    }
+    .counter button:active { background: var(--accent); }
+    .counter input {
+      width: 52px;
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 700;
+      padding: 6px 0;
+    }
+
+    /* SETS */
+    .sets-container { margin-top: 10px; }
+    .set-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .set-badge {
+      background: var(--surface);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 14px;
+      color: var(--muted);
+      min-width: 60px;
+      text-align: center;
+    }
+    .set-badge strong { color: var(--text); }
+    .set-delete {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      border-radius: var(--radius);
+      border: none;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity .2s;
+    }
+    .btn:active { opacity: .8; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+    .btn-add { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); margin-bottom: 10px; }
+    .btn-sm {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* HISTORY */
+    .history-entry {
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      background: var(--card);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .history-date { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .history-exercises { display: flex; gap: 12px; flex-wrap: wrap; }
+    .history-pill {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 13px;
+    }
+    .history-pill strong { color: var(--accent); }
+
+    /* CHART */
+    .chart-wrap { position: relative; height: 120px; margin: 10px 0; }
+    canvas { width: 100% !important; }
+
+    /* PROGRAM */
+    .program-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .program-row:last-child { border-bottom: none; }
+    .program-name { flex: 1; font-size: 15px; font-weight: 600; }
+    .program-name span { display: block; font-size: 12px; color: var(--muted); font-weight: 400; }
+    .program-input {
+      width: 60px;
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 700;
+      padding: 8px 0;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .tag-easy { background: #4ade8033; color: var(--success); }
+    .tag-ok { background: #facc1533; color: #facc15; }
+    .tag-hard { background: #f8717133; color: #f87171; }
+
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%; transform: translateX(-50%);
+      background: var(--success);
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 15px;
+      opacity: 0;
+      transition: opacity .3s;
+      z-index: 200;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; }
+
+    .empty-state {
+      text-align: center;
+      color: var(--muted);
+      padding: 40px 0;
+      font-size: 15px;
+    }
+
+    .streak-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .streak-card {
+      flex: 1;
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 14px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .streak-num { font-size: 28px; font-weight: 800; color: var(--accent); }
+    .streak-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- PAGES -->
+<div id="page-log" class="page active">
+  <h1>Log træning</h1>
+  <p class="subtitle" id="log-date"></p>
+
+  <div class="card" id="pushup-card">
+    <div class="card-title">💪 Armbøjninger</div>
+    <div class="exercise-row">
+      <div class="exercise-label">Sæt reps<span id="pushup-goal-hint"></span></div>
+      <div class="counter">
+        <button onclick="adjust('pushup', -1)">−</button>
+        <input type="number" id="pushup-input" value="10" min="0">
+        <button onclick="adjust('pushup', 1)">+</button>
+      </div>
+    </div>
+    <button class="btn btn-add" onclick="addSet('pushup')">+ Tilføj sæt</button>
+    <div class="sets-container" id="pushup-sets"></div>
+  </div>
+
+  <div class="card" id="pullup-card">
+    <div class="card-title">🏋️ Pull-ups</div>
+    <div class="exercise-row">
+      <div class="exercise-label">Sæt reps<span id="pullup-goal-hint"></span></div>
+      <div class="counter">
+        <button onclick="adjust('pullup', -1)">−</button>
+        <input type="number" id="pullup-input" value="5" min="0">
+        <button onclick="adjust('pullup', 1)">+</button>
+      </div>
+    </div>
+    <button class="btn btn-add" onclick="addSet('pullup')">+ Tilføj sæt</button>
+    <div class="sets-container" id="pullup-sets"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Hvordan føltes det?</div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn-sm tag tag-easy" onclick="setFeel('easy')">😊 Let</button>
+      <button class="btn-sm tag tag-ok" onclick="setFeel('ok')">😐 Passende</button>
+      <button class="btn-sm tag tag-hard" onclick="setFeel('hard')">😤 Hårdt</button>
+    </div>
+    <p id="feel-display" style="margin-top:10px;font-size:13px;color:var(--muted);"></p>
+  </div>
+
+  <button class="btn btn-primary" onclick="saveWorkout()">Gem træning ✓</button>
+</div>
+
+<div id="page-history" class="page">
+  <h1>Historik</h1>
+  <p class="subtitle">Din progression over tid</p>
+
+  <div class="streak-row">
+    <div class="streak-card">
+      <div class="streak-num" id="stat-total">0</div>
+      <div class="streak-label">Træninger</div>
+    </div>
+    <div class="streak-card">
+      <div class="streak-num" id="stat-pushup-max">0</div>
+      <div class="streak-label">Bedste armbøjninger</div>
+    </div>
+    <div class="streak-card">
+      <div class="streak-num" id="stat-pullup-max">0</div>
+      <div class="streak-label">Bedste pull-ups</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💪 Armbøjninger — total reps per træning</div>
+    <div class="chart-wrap"><canvas id="chart-pushup"></canvas></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏋️ Pull-ups — total reps per træning</div>
+    <div class="chart-wrap"><canvas id="chart-pullup"></canvas></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Seneste træninger</div>
+    <div id="history-list"></div>
+  </div>
+</div>
+
+<div id="page-program" class="page">
+  <h1>Program</h1>
+  <p class="subtitle">Justér dit mål per sæt</p>
+
+  <div class="card">
+    <div class="card-title">Mål per sæt</div>
+    <div class="program-row">
+      <div class="program-name">💪 Armbøjninger<span>reps per sæt</span></div>
+      <input class="program-input" type="number" id="prog-pushup" min="1" value="10">
+    </div>
+    <div class="program-row">
+      <div class="program-name">🏋️ Pull-ups<span>reps per sæt</span></div>
+      <input class="program-input" type="number" id="prog-pullup" min="1" value="5">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Antal sæt mål</div>
+    <div class="program-row">
+      <div class="program-name">💪 Armbøjninger<span>sæt per session</span></div>
+      <input class="program-input" type="number" id="prog-pushup-sets" min="1" value="3">
+    </div>
+    <div class="program-row">
+      <div class="program-name">🏋️ Pull-ups<span>sæt per session</span></div>
+      <input class="program-input" type="number" id="prog-pullup-sets" min="1" value="3">
+    </div>
+  </div>
+
+  <div class="card" id="suggestion-card" style="display:none;">
+    <div class="card-title">💡 Forslag baseret på din feedback</div>
+    <p id="suggestion-text" style="font-size:14px;line-height:1.6;"></p>
+  </div>
+
+  <button class="btn btn-primary" onclick="saveProgram()">Gem program</button>
+  <div style="height:12px;"></div>
+  <button class="btn btn-secondary" onclick="clearAll()" style="color:#f87171;">Slet al data</button>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav>
+  <button class="active" onclick="goTo('log')" id="nav-log">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    Log
+  </button>
+  <button onclick="goTo('history')" id="nav-history">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Historik
+  </button>
+  <button onclick="goTo('program')" id="nav-program">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+    Program
+  </button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// --- CONFIG ---
+const API_URL = 'https://script.google.com/macros/s/AKfycbwa7-PhUsp9jwF1huZvDejumsMW0CkOEkmAQd3WrFqw_4Ads_CByk3CmKVrGsOYrb24/exec';
+
+// --- STATE ---
+let state = {
+  workouts: [],
+  program: { pushup: 10, pullup: 5, pushupSets: 3, pullupSets: 3 }
+};
+let session = { pushupSets: [], pullupSets: [], feel: null };
+
+function load() {
+  const saved = localStorage.getItem('workout-tracker-v1');
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    state.program = parsed.program || state.program;
+    // workouts comes from sheets, not localStorage
+  }
+}
+function saveLocal() {
+  localStorage.setItem('workout-tracker-v1', JSON.stringify({ program: state.program }));
+}
+
+async function fetchWorkouts() {
+  try {
+    showToast('Henter data...');
+    const res = await fetch(API_URL);
+    const data = await res.json();
+    state.workouts = data.map(w => ({
+      date: w.date,
+      pushupSets: w.pushupSets ? String(w.pushupSets).split(',').map(Number).filter(n => !isNaN(n)) : [],
+      pullupSets: w.pullupSets ? String(w.pullupSets).split(',').map(Number).filter(n => !isNaN(n)) : [],
+      feel: w.feel || null
+    }));
+  } catch(e) {
+    showToast('Kunne ikke hente data – tjek internetforbindelse');
+  }
+}
+
+async function postWorkout(workout) {
+  const payload = {
+    date: workout.date,
+    pushupSets: workout.pushupSets.join(','),
+    pushupTotal: workout.pushupSets.reduce((a,b)=>a+b,0),
+    pullupSets: workout.pullupSets.join(','),
+    pullupTotal: workout.pullupSets.reduce((a,b)=>a+b,0),
+    feel: workout.feel || ''
+  };
+  await fetch(API_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  });
+}
+
+load();
+
+// --- NAV ---
+function goTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('nav-' + page).classList.add('active');
+  if (page === 'history') { fetchWorkouts().then(renderHistory); }
+  if (page === 'program') renderProgram();
+  if (page === 'log') renderLogHints();
+}
+
+// --- LOG PAGE ---
+function renderLogHints() {
+  const p = state.program;
+  document.getElementById('pushup-goal-hint').textContent = `Mål: ${p.pushup} reps × ${p.pushupSets} sæt`;
+  document.getElementById('pullup-goal-hint').textContent = `Mål: ${p.pullup} reps × ${p.pullupSets} sæt`;
+  document.getElementById('log-date').textContent = new Date().toLocaleDateString('da-DK', { weekday:'long', day:'numeric', month:'long' });
+}
+renderLogHints();
+
+function adjust(ex, delta) {
+  const el = document.getElementById(ex + '-input');
+  el.value = Math.max(0, (parseInt(el.value) || 0) + delta);
+}
+
+function addSet(ex) {
+  const val = parseInt(document.getElementById(ex + '-input').value) || 0;
+  if (val <= 0) return;
+  session[ex + 'Sets'].push(val);
+  renderSets(ex);
+}
+
+function renderSets(ex) {
+  const sets = session[ex + 'Sets'];
+  const container = document.getElementById(ex + '-sets');
+  container.innerHTML = sets.map((reps, i) => `
+    <div class="set-row">
+      <div class="set-badge">Sæt ${i+1}: <strong>${reps}</strong> reps</div>
+      <button class="set-delete" onclick="deleteSet('${ex}', ${i})">✕</button>
+    </div>
+  `).join('') + (sets.length > 0 ? `<p style="font-size:13px;color:var(--muted);margin-top:6px;">Total: <strong style="color:var(--text)">${sets.reduce((a,b)=>a+b,0)}</strong> reps</p>` : '');
+}
+
+function deleteSet(ex, i) {
+  session[ex + 'Sets'].splice(i, 1);
+  renderSets(ex);
+}
+
+let currentFeel = null;
+function setFeel(feel) {
+  currentFeel = feel;
+  const labels = { easy: '😊 Let — overvejer at øge næste gang', ok: '😐 Passende — hold programmet', hard: '😤 Hårdt — overvejer at sænke lidt' };
+  document.getElementById('feel-display').textContent = labels[feel];
+}
+
+async function saveWorkout() {
+  if (session.pushupSets.length === 0 && session.pullupSets.length === 0) {
+    showToast('Tilføj mindst ét sæt først');
+    return;
+  }
+  const workout = {
+    date: new Date().toISOString(),
+    pushupSets: [...session.pushupSets],
+    pullupSets: [...session.pullupSets],
+    feel: currentFeel
+  };
+
+  showToast('Gemmer...');
+  try {
+    await postWorkout(workout);
+    state.workouts.push(workout);
+  } catch(e) {
+    showToast('Fejl ved gemning – prøv igen');
+    return;
+  }
+
+  // Reset session
+  session = { pushupSets: [], pullupSets: [], feel: null };
+  renderSets('pushup'); renderSets('pullup');
+  document.getElementById('feel-display').textContent = '';
+  currentFeel = null;
+
+  showToast('Træning gemt i Google Sheets! 💪');
+}
+
+// --- HISTORY PAGE ---
+function renderHistory() {
+  const workouts = [...state.workouts].reverse();
+
+  // Stats
+  const totalPushups = workouts.map(w => w.pushupSets.reduce((a,b)=>a+b,0));
+  const totalPullups = workouts.map(w => w.pullupSets.reduce((a,b)=>a+b,0));
+  document.getElementById('stat-total').textContent = workouts.length;
+  document.getElementById('stat-pushup-max').textContent = totalPushups.length ? Math.max(...totalPushups) : 0;
+  document.getElementById('stat-pullup-max').textContent = totalPullups.length ? Math.max(...totalPullups) : 0;
+
+  // History list
+  const list = document.getElementById('history-list');
+  if (!workouts.length) {
+    list.innerHTML = '<div class="empty-state">Ingen træninger endnu.<br>Log din første efter en løbetur!</div>';
+  } else {
+    list.innerHTML = workouts.slice(0, 15).map(w => {
+      const d = new Date(w.date);
+      const dateStr = d.toLocaleDateString('da-DK', { weekday:'short', day:'numeric', month:'short' });
+      const pushTotal = w.pushupSets.reduce((a,b)=>a+b,0);
+      const pullTotal = w.pullupSets.reduce((a,b)=>a+b,0);
+      const feelEmoji = { easy:'😊', ok:'😐', hard:'😤' }[w.feel] || '';
+      return `
+        <div class="history-entry">
+          <div class="history-date">${dateStr} ${feelEmoji}</div>
+          <div class="history-exercises">
+            ${pushTotal ? `<div class="history-pill">💪 <strong>${pushTotal}</strong> reps (${w.pushupSets.length} sæt)</div>` : ''}
+            ${pullTotal ? `<div class="history-pill">🏋️ <strong>${pullTotal}</strong> reps (${w.pullupSets.length} sæt)</div>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Charts
+  const sorted = [...state.workouts];
+  const labels = sorted.map(w => new Date(w.date).toLocaleDateString('da-DK', {day:'numeric',month:'short'}));
+  const pushData = sorted.map(w => w.pushupSets.reduce((a,b)=>a+b,0));
+  const pullData = sorted.map(w => w.pullupSets.reduce((a,b)=>a+b,0));
+
+  drawChart('chart-pushup', labels, pushData, '#6c63ff');
+  drawChart('chart-pullup', labels, pullData, '#ff6584');
+}
+
+function drawChart(id, labels, data, color) {
+  const canvas = document.getElementById(id);
+  const ctx = canvas.getContext('2d');
+  const W = canvas.parentElement.clientWidth;
+  const H = 120;
+  canvas.width = W * window.devicePixelRatio;
+  canvas.height = H * window.devicePixelRatio;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+  ctx.clearRect(0, 0, W, H);
+
+  if (!data.length) {
+    ctx.fillStyle = '#888899';
+    ctx.font = '13px -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Ingen data endnu', W/2, H/2);
+    return;
+  }
+
+  const pad = { top: 10, right: 10, bottom: 24, left: 30 };
+  const cw = W - pad.left - pad.right;
+  const ch = H - pad.top - pad.bottom;
+  const max = Math.max(...data, 1);
+
+  // Grid lines
+  ctx.strokeStyle = '#2e2e3a';
+  ctx.lineWidth = 1;
+  [0, 0.5, 1].forEach(t => {
+    const y = pad.top + ch * (1 - t);
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+    ctx.fillStyle = '#888899';
+    ctx.font = '10px -apple-system, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round(max * t), pad.left - 4, y + 4);
+  });
+
+  if (data.length === 1) {
+    const x = pad.left + cw / 2;
+    const y = pad.top + ch * (1 - data[0] / max);
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+  } else {
+    // Line
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'round';
+    data.forEach((v, i) => {
+      const x = pad.left + (i / (data.length - 1)) * cw;
+      const y = pad.top + ch * (1 - v / max);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // Fill
+    ctx.lineTo(pad.left + cw, pad.top + ch);
+    ctx.lineTo(pad.left, pad.top + ch);
+    ctx.closePath();
+    ctx.fillStyle = color + '22';
+    ctx.fill();
+
+    // Dots
+    data.forEach((v, i) => {
+      const x = pad.left + (i / (data.length - 1)) * cw;
+      const y = pad.top + ch * (1 - v / max);
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+    });
+  }
+
+  // X labels (first, last, and midpoints if space)
+  ctx.fillStyle = '#888899';
+  ctx.font = '10px -apple-system, sans-serif';
+  ctx.textAlign = 'center';
+  const step = Math.max(1, Math.ceil(data.length / 5));
+  labels.forEach((l, i) => {
+    if (i % step === 0 || i === data.length - 1) {
+      const x = data.length === 1 ? pad.left + cw / 2 : pad.left + (i / (data.length - 1)) * cw;
+      ctx.fillText(l, x, H - 4);
+    }
+  });
+}
+
+// --- PROGRAM PAGE ---
+function renderProgram() {
+  const p = state.program;
+  document.getElementById('prog-pushup').value = p.pushup;
+  document.getElementById('prog-pullup').value = p.pullup;
+  document.getElementById('prog-pushup-sets').value = p.pushupSets;
+  document.getElementById('prog-pullup-sets').value = p.pullupSets;
+
+  // Show suggestions based on recent feels
+  const recent = state.workouts.slice(-5).map(w => w.feel).filter(Boolean);
+  if (recent.length >= 2) {
+    const card = document.getElementById('suggestion-card');
+    const txt = document.getElementById('suggestion-text');
+    const hardCount = recent.filter(f => f === 'hard').length;
+    const easyCount = recent.filter(f => f === 'easy').length;
+    if (hardCount >= 2) {
+      card.style.display = 'block';
+      txt.textContent = `Du har markeret ${hardCount} af de seneste ${recent.length} træninger som hårde. Overvej at sænke reps med 10-15% og arbejde dig op igen.`;
+    } else if (easyCount >= 2) {
+      card.style.display = 'block';
+      txt.textContent = `Du har markeret ${easyCount} af de seneste ${recent.length} træninger som lette. Prøv at øge reps med 5-10% — du er klar til næste niveau!`;
+    } else {
+      card.style.display = 'none';
+    }
+  }
+}
+
+function saveProgram() {
+  state.program = {
+    pushup: parseInt(document.getElementById('prog-pushup').value) || 10,
+    pullup: parseInt(document.getElementById('prog-pullup').value) || 5,
+    pushupSets: parseInt(document.getElementById('prog-pushup-sets').value) || 3,
+    pullupSets: parseInt(document.getElementById('prog-pullup-sets').value) || 3,
+  };
+  saveLocal();
+  renderLogHints();
+  showToast('Program gemt!');
+}
+
+function updateSuggestion(feel) {
+  // Just trigger re-render next time user visits program
+}
+
+function clearAll() {
+  if (!confirm('Sikker på du vil slette al data?')) return;
+  state.workouts = [];
+  save();
+  showToast('Al data slettet');
+}
+
+// --- TOAST ---
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>
