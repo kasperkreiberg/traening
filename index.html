@@ -30,7 +30,6 @@
       padding-bottom: 80px;
     }
 
-    /* NAV */
     nav {
       display: flex;
       position: fixed;
@@ -41,365 +40,354 @@
       padding-bottom: env(safe-area-inset-bottom);
     }
     nav button {
-      flex: 1;
-      background: none;
-      border: none;
-      color: var(--muted);
-      padding: 12px 0 10px;
-      font-size: 11px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      transition: color .2s;
+      flex: 1; background: none; border: none; color: var(--muted);
+      padding: 12px 0 10px; font-size: 11px; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 4px; transition: color .2s;
     }
     nav button.active { color: var(--accent); }
     nav button svg { width: 22px; height: 22px; }
 
-    /* PAGES */
     .page { display: none; padding: 20px 16px; max-width: 480px; margin: 0 auto; }
     .page.active { display: block; }
 
     h1 { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
-    .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+    .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
 
-    /* CARDS */
     .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 14px;
-      border: 1px solid var(--border);
+      background: var(--card); border-radius: var(--radius);
+      padding: 18px; margin-bottom: 12px; border: 1px solid var(--border);
     }
-
     .card-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      margin-bottom: 14px;
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .5px; margin-bottom: 14px;
     }
 
-    /* EXERCISE INPUT */
-    .exercise-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .exercise-label {
-      flex: 1;
-      font-size: 16px;
-      font-weight: 600;
-    }
-    .exercise-label span {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 400;
-    }
-    .counter {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .counter button {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-size: 20px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background .15s;
-    }
-    .counter button:active { background: var(--accent); }
-    .counter input {
-      width: 52px;
-      text-align: center;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 20px;
-      font-weight: 700;
-      padding: 6px 0;
-    }
-
-    /* SETS */
-    .sets-container { margin-top: 10px; }
-    .set-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-    .set-badge {
-      background: var(--surface);
-      border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 14px;
-      color: var(--muted);
-      min-width: 60px;
-      text-align: center;
-    }
-    .set-badge strong { color: var(--text); }
-    .set-delete {
-      background: none;
-      border: none;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 18px;
-      padding: 4px;
-    }
-
-    /* BUTTONS */
     .btn {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      border-radius: var(--radius);
-      border: none;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: opacity .2s;
+      display: block; width: 100%; padding: 15px; border-radius: var(--radius);
+      border: none; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .2s;
     }
     .btn:active { opacity: .8; }
     .btn-primary { background: var(--accent); color: #fff; }
     .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
-    .btn-add { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); margin-bottom: 10px; }
-    .btn-sm {
-      padding: 8px 16px;
-      border-radius: 8px;
-      border: none;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-    }
+    .btn-sm { padding: 8px 14px; border-radius: 8px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; }
 
-    /* HISTORY */
-    .history-entry {
-      border-left: 3px solid var(--accent);
-      padding: 10px 14px;
-      margin-bottom: 10px;
-      background: var(--card);
-      border-radius: 0 var(--radius) var(--radius) 0;
+    .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+    .tag-easy { background: #4ade8033; color: var(--success); }
+    .tag-ok   { background: #facc1533; color: #facc15; }
+    .tag-hard { background: #f8717133; color: #f87171; }
+    .tag-selected { outline: 2px solid currentColor; outline-offset: 2px; }
+
+    /* --- EXERCISE TOGGLES (skalerbare) --- */
+    .toggle-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .ex-toggle {
+      flex: 1; min-width: 80px;
+      background: var(--surface); border: 2px solid var(--border);
+      border-radius: var(--radius); padding: 12px 8px; text-align: center;
+      cursor: pointer; transition: border-color .2s, background .2s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .history-date { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
-    .history-exercises { display: flex; gap: 12px; flex-wrap: wrap; }
-    .history-pill {
+    .ex-toggle.on  { border-color: var(--accent); background: rgba(108,99,255,.12); }
+    .ex-toggle.off { opacity: .4; }
+    .ex-toggle-emoji { font-size: 22px; display: block; margin-bottom: 3px; }
+    .ex-toggle-name  { font-size: 11px; font-weight: 600; color: var(--muted); }
+    .ex-toggle.on .ex-toggle-name { color: var(--accent); }
+
+    /* --- WORKOUT PREVIEW --- */
+    .preview-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+    }
+    .preview-row:last-child { border-bottom: none; }
+    .preview-name { font-size: 15px; font-weight: 600; }
+    .preview-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .bell-chips { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+    .bell-chip { background: var(--surface); border-radius: 6px; padding: 4px 8px; font-size: 13px; font-weight: 600; }
+    .bell-chip.peak { background: var(--accent); color: #fff; }
+
+    /* --- TIME ESTIMATE --- */
+    .time-estimate {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; background: var(--card);
+      border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 12px;
+    }
+    .time-icon { font-size: 24px; }
+    .time-main { font-size: 20px; font-weight: 800; }
+    .time-break { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* --- PLAN STRIP (synlig under aktiv træning) --- */
+    #workout-strip {
+      margin: -20px -16px 16px;
       background: var(--surface);
-      border-radius: 20px;
-      padding: 4px 12px;
-      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
     }
-    .history-pill strong { color: var(--accent); }
+    .ex-progress-row {
+      display: flex; align-items: center; gap: 6px;
+      padding: 3px 0;
+    }
+    .ex-progress-label { font-size: 14px; width: 22px; flex-shrink: 0; }
+    .ex-progress-dots  { display: flex; gap: 4px; overflow-x: auto; }
+    .ex-dot {
+      flex-shrink: 0;
+      width: 28px; height: 28px; border-radius: 6px;
+      border: 1.5px solid var(--border); background: var(--card);
+      font-size: 11px; font-weight: 700; color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ex-dot.done    { background: var(--accent);  border-color: var(--accent);  color: #fff; }
+    .ex-dot.current { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
 
-    /* CHART */
+    /* Pull-ups bruger accent2 farve */
+    .ex-dot.pull-done    { background: var(--accent2); border-color: var(--accent2); color: #fff; }
+    .ex-dot.pull-current { background: transparent; border: 2px solid var(--accent2); color: var(--accent2); }
+
+    /* --- ACTIVE SET --- */
+    .progress-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .progress-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .progress-fill  { height: 100%; background: var(--accent); border-radius: 2px; transition: width .3s; }
+    .progress-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+    .set-card {
+      background: var(--card); border-radius: var(--radius);
+      border: 1px solid var(--border); padding: 28px 20px 22px;
+      margin-bottom: 14px; text-align: center;
+    }
+    .set-emoji    { font-size: 44px; margin-bottom: 8px; }
+    .set-name     { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .set-sublabel { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+    .suggested-line { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+    .suggested-line strong { color: var(--accent); font-size: 18px; }
+
+    .actual-counter {
+      display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 6px;
+    }
+    .counter-btn {
+      width: 52px; height: 52px; border-radius: 50%;
+      border: 2px solid var(--border); background: var(--surface);
+      color: var(--text); font-size: 28px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s, border-color .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .counter-btn:active { background: var(--accent); border-color: var(--accent); }
+    .actual-num { font-size: 60px; font-weight: 800; line-height: 1; min-width: 80px; text-align: center; }
+    .counter-sublabel { font-size: 12px; color: var(--muted); }
+
+    /* --- REST --- */
+    .rest-card {
+      background: var(--card); border-radius: var(--radius);
+      border: 1px solid var(--border); padding: 28px 20px;
+      margin-bottom: 14px; text-align: center;
+    }
+    .rest-header { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .rest-reason { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+    .countdown-num {
+      font-size: 88px; font-weight: 800; color: var(--accent);
+      line-height: 1; margin-bottom: 18px; font-variant-numeric: tabular-nums; transition: color .3s;
+    }
+    .countdown-num.urgent { color: #f87171; }
+    .timer-btns { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+    .timer-btn {
+      padding: 10px 22px; border-radius: 10px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--text); font-size: 16px; font-weight: 700; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .timer-btn:active { background: var(--accent); border-color: var(--accent); }
+    .next-up-label { font-size: 12px; color: var(--muted); }
+    .next-up-val   { font-size: 16px; font-weight: 600; margin-top: 4px; }
+
+    /* --- COMPLETE --- */
+    .complete-header { font-size: 28px; font-weight: 800; text-align: center; margin-bottom: 20px; }
+    .summary-row {
+      display: flex; justify-content: space-between; padding: 9px 0;
+      border-bottom: 1px solid var(--border); font-size: 14px;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-label { color: var(--muted); }
+    .summary-val   { font-weight: 700; }
+
+    /* --- HISTORY --- */
+    .streak-row { display: flex; gap: 10px; margin-bottom: 18px; }
+    .streak-card {
+      flex: 1; background: var(--card); border-radius: var(--radius);
+      padding: 14px; text-align: center; border: 1px solid var(--border);
+    }
+    .streak-num   { font-size: 28px; font-weight: 800; color: var(--accent); }
+    .streak-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
     .chart-wrap { position: relative; height: 120px; margin: 10px 0; }
     canvas { width: 100% !important; }
+    .history-entry {
+      border-left: 3px solid var(--accent); padding: 10px 14px; margin-bottom: 10px;
+      background: var(--card); border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .history-entry.hidden-entry { opacity: .4; border-left-color: var(--border); }
+    .history-date  { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .history-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .history-pill  { background: var(--surface); border-radius: 20px; padding: 4px 12px; font-size: 13px; }
+    .history-pill strong { color: var(--accent); }
 
-    /* PROGRAM */
+    #undo-bar {
+      display: none; position: fixed; bottom: 90px; left: 16px; right: 16px;
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 12px 16px; z-index: 201; align-items: center; justify-content: space-between;
+    }
+
+    /* --- PROGRAM --- */
     .program-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
     }
     .program-row:last-child { border-bottom: none; }
     .program-name { flex: 1; font-size: 15px; font-weight: 600; }
     .program-name span { display: block; font-size: 12px; color: var(--muted); font-weight: 400; }
     .program-input {
-      width: 60px;
-      text-align: center;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 700;
-      padding: 8px 0;
+      width: 56px; text-align: center; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); font-size: 16px; font-weight: 700; padding: 8px 0;
     }
+    .estmax-counter { display: flex; align-items: center; gap: 8px; }
+    .estmax-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--text); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .estmax-btn:active { background: var(--accent); border-color: var(--accent); }
+    .estmax-val { font-size: 20px; font-weight: 700; min-width: 32px; text-align: center; }
+    .bell-preview-wrap { margin-top: 10px; }
+    .bell-preview-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
 
-    .tag {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .tag-easy { background: #4ade8033; color: var(--success); }
-    .tag-ok { background: #facc1533; color: #facc15; }
-    .tag-hard { background: #f8717133; color: #f87171; }
+    .empty-state { text-align: center; color: var(--muted); padding: 40px 0; font-size: 15px; }
 
     .toast {
-      position: fixed;
-      bottom: 90px;
-      left: 50%; transform: translateX(-50%);
-      background: var(--success);
-      color: #000;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 15px;
-      opacity: 0;
-      transition: opacity .3s;
-      z-index: 200;
-      white-space: nowrap;
+      position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+      background: var(--success); color: #000; padding: 12px 24px;
+      border-radius: 30px; font-weight: 700; font-size: 15px;
+      opacity: 0; transition: opacity .3s; z-index: 200; white-space: nowrap;
     }
     .toast.show { opacity: 1; }
-
-    .empty-state {
-      text-align: center;
-      color: var(--muted);
-      padding: 40px 0;
-      font-size: 15px;
-    }
-
-    .streak-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-    .streak-card {
-      flex: 1;
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 14px;
-      text-align: center;
-      border: 1px solid var(--border);
-    }
-    .streak-num { font-size: 28px; font-weight: 800; color: var(--accent); }
-    .streak-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
   </style>
 </head>
 <body>
 
-<!-- PAGES -->
+<!-- LOG PAGE -->
 <div id="page-log" class="page active">
-  <h1>Log træning</h1>
+  <h1>Træning</h1>
   <p class="subtitle" id="log-date"></p>
 
-  <div class="card" id="pushup-card">
-    <div class="card-title">💪 Armbøjninger</div>
-    <div class="exercise-row">
-      <div class="exercise-label">Sæt reps<span id="pushup-goal-hint"></span></div>
-      <div class="counter">
-        <button onclick="adjust('pushup', -1)">−</button>
-        <input type="number" id="pushup-input" value="10" min="0">
-        <button onclick="adjust('pushup', 1)">+</button>
+  <!-- IDLE -->
+  <div id="phase-idle">
+    <div class="toggle-row" id="toggle-row"></div>
+    <div class="card" id="preview-card">
+      <div class="card-title">Foreslået i dag</div>
+      <div id="workout-preview"></div>
+      <div id="rest-info" style="margin-top:12px;font-size:12px;color:var(--muted);"></div>
+    </div>
+    <div class="time-estimate">
+      <span class="time-icon">⏱</span>
+      <div>
+        <div class="time-main" id="time-main">—</div>
+        <div class="time-break" id="time-break"></div>
       </div>
     </div>
-    <button class="btn btn-add" onclick="addSet('pushup')">+ Tilføj sæt</button>
-    <div class="sets-container" id="pushup-sets"></div>
+    <button class="btn btn-primary" onclick="startWorkout()">Start træning 🚀</button>
   </div>
 
-  <div class="card" id="pullup-card">
-    <div class="card-title">🏋️ Pull-ups</div>
-    <div class="exercise-row">
-      <div class="exercise-label">Sæt reps<span id="pullup-goal-hint"></span></div>
-      <div class="counter">
-        <button onclick="adjust('pullup', -1)">−</button>
-        <input type="number" id="pullup-input" value="5" min="0">
-        <button onclick="adjust('pullup', 1)">+</button>
+  <!-- PLAN STRIP — synlig under aktiv/hvile faserne -->
+  <div id="workout-strip" style="display:none;">
+    <div class="ex-progress-row" id="strip-row-pushup"></div>
+    <div class="ex-progress-row" id="strip-row-pullup"></div>
+  </div>
+
+  <!-- ACTIVE -->
+  <div id="phase-active" style="display:none;">
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <span class="progress-label" id="progress-label"></span>
+    </div>
+    <div class="set-card">
+      <div class="set-emoji" id="set-emoji"></div>
+      <div class="set-name" id="set-name"></div>
+      <div class="set-sublabel" id="set-sublabel"></div>
+      <div class="suggested-line">Foreslået: <strong id="set-suggested"></strong> reps</div>
+      <div class="actual-counter">
+        <button class="counter-btn" onclick="adjustActual(-1)">−</button>
+        <span class="actual-num" id="actual-reps">0</span>
+        <button class="counter-btn" onclick="adjustActual(1)">+</button>
+      </div>
+      <div class="counter-sublabel">faktiske reps</div>
+    </div>
+    <button class="btn btn-primary" onclick="completeSet()">Gennemført ✓</button>
+  </div>
+
+  <!-- REST -->
+  <div id="phase-rest" style="display:none;">
+    <div class="rest-card">
+      <div class="rest-header">Hvil</div>
+      <div class="rest-reason" id="rest-reason"></div>
+      <div class="countdown-num" id="countdown-num">90</div>
+      <div class="timer-btns">
+        <button class="timer-btn" onclick="adjustRestTime(-10)">−10s</button>
+        <button class="timer-btn" onclick="adjustRestTime(10)">+10s</button>
+      </div>
+      <div class="next-up-label">Næste sæt</div>
+      <div class="next-up-val" id="next-up-val"></div>
+    </div>
+    <button class="btn btn-secondary" onclick="skipRest()">Spring hvil over →</button>
+  </div>
+
+  <!-- COMPLETE -->
+  <div id="phase-complete" style="display:none;">
+    <div class="complete-header">Træning fuldført! 💪</div>
+    <div class="card" id="complete-summary"></div>
+    <div class="card">
+      <div class="card-title">Hvordan føltes det?</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-sm tag tag-easy" id="feel-easy" onclick="setFeel('easy')">😊 Let</button>
+        <button class="btn-sm tag tag-ok"   id="feel-ok"   onclick="setFeel('ok')">😐 Passende</button>
+        <button class="btn-sm tag tag-hard" id="feel-hard" onclick="setFeel('hard')">😤 Hårdt</button>
       </div>
     </div>
-    <button class="btn btn-add" onclick="addSet('pullup')">+ Tilføj sæt</button>
-    <div class="sets-container" id="pullup-sets"></div>
+    <button class="btn btn-primary" onclick="saveWorkout()">Gem træning ✓</button>
+    <div style="height:8px;"></div>
+    <button class="btn btn-secondary" onclick="discardWorkout()" style="color:#f87171;">Kassér træning</button>
   </div>
-
-  <div class="card">
-    <div class="card-title">Hvordan føltes det?</div>
-    <div style="display:flex;gap:8px;">
-      <button class="btn-sm tag tag-easy" onclick="setFeel('easy')">😊 Let</button>
-      <button class="btn-sm tag tag-ok" onclick="setFeel('ok')">😐 Passende</button>
-      <button class="btn-sm tag tag-hard" onclick="setFeel('hard')">😤 Hårdt</button>
-    </div>
-    <p id="feel-display" style="margin-top:10px;font-size:13px;color:var(--muted);"></p>
-  </div>
-
-  <button class="btn btn-primary" onclick="saveWorkout()">Gem træning ✓</button>
 </div>
 
+<!-- HISTORY PAGE -->
 <div id="page-history" class="page">
   <h1>Historik</h1>
   <p class="subtitle">Din progression over tid</p>
-
   <div class="streak-row">
-    <div class="streak-card">
-      <div class="streak-num" id="stat-total">0</div>
-      <div class="streak-label">Træninger</div>
-    </div>
-    <div class="streak-card">
-      <div class="streak-num" id="stat-pushup-max">0</div>
-      <div class="streak-label">Bedste armbøjninger</div>
-    </div>
-    <div class="streak-card">
-      <div class="streak-num" id="stat-pullup-max">0</div>
-      <div class="streak-label">Bedste pull-ups</div>
-    </div>
+    <div class="streak-card"><div class="streak-num" id="stat-total">0</div><div class="streak-label">Træninger</div></div>
+    <div class="streak-card"><div class="streak-num" id="stat-pushup-max">0</div><div class="streak-label">Bedste push total</div></div>
+    <div class="streak-card"><div class="streak-num" id="stat-pullup-max">0</div><div class="streak-label">Bedste pull total</div></div>
   </div>
-
   <div class="card">
-    <div class="card-title">💪 Armbøjninger — total reps per træning</div>
+    <div class="card-title">💪 Armbøjninger — total reps</div>
     <div class="chart-wrap"><canvas id="chart-pushup"></canvas></div>
   </div>
-
   <div class="card">
-    <div class="card-title">🏋️ Pull-ups — total reps per træning</div>
+    <div class="card-title">🏋️ Pull-ups — total reps</div>
     <div class="chart-wrap"><canvas id="chart-pullup"></canvas></div>
   </div>
-
   <div class="card">
     <div class="card-title">Seneste træninger</div>
     <div id="history-list"></div>
   </div>
 </div>
 
+<!-- PROGRAM PAGE -->
 <div id="page-program" class="page">
   <h1>Program</h1>
-  <p class="subtitle">Justér dit mål per sæt</p>
-
-  <div class="card">
-    <div class="card-title">Mål per sæt</div>
-    <div class="program-row">
-      <div class="program-name">💪 Armbøjninger<span>reps per sæt</span></div>
-      <input class="program-input" type="number" id="prog-pushup" min="1" value="10">
-    </div>
-    <div class="program-row">
-      <div class="program-name">🏋️ Pull-ups<span>reps per sæt</span></div>
-      <input class="program-input" type="number" id="prog-pullup" min="1" value="5">
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Antal sæt mål</div>
-    <div class="program-row">
-      <div class="program-name">💪 Armbøjninger<span>sæt per session</span></div>
-      <input class="program-input" type="number" id="prog-pushup-sets" min="1" value="3">
-    </div>
-    <div class="program-row">
-      <div class="program-name">🏋️ Pull-ups<span>sæt per session</span></div>
-      <input class="program-input" type="number" id="prog-pullup-sets" min="1" value="3">
-    </div>
-  </div>
-
-  <div class="card" id="suggestion-card" style="display:none;">
-    <div class="card-title">💡 Forslag baseret på din feedback</div>
-    <p id="suggestion-text" style="font-size:14px;line-height:1.6;"></p>
-  </div>
-
-  <button class="btn btn-primary" onclick="saveProgram()">Gem program</button>
+  <p class="subtitle">Progressionsindstillinger</p>
+  <div id="program-exercise-cards"></div>
+  <button class="btn btn-primary" onclick="saveProgram()">Gem indstillinger</button>
   <div style="height:12px;"></div>
-  <button class="btn btn-secondary" onclick="clearAll()" style="color:#f87171;">Slet al data</button>
+  <button class="btn btn-secondary" onclick="clearAll()" style="color:#f87171;">Nulstil lokal data</button>
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- NAV -->
 <nav>
   <button class="active" onclick="goTo('log')" id="nav-log">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
@@ -414,32 +402,108 @@
     Program
   </button>
 </nav>
-
+<div id="undo-bar">
+  <span style="font-size:14px;">Træning slettet</span>
+  <button onclick="undoDelete()" style="background:var(--accent);border:none;color:#fff;padding:7px 16px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;">Fortryd</button>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
-// --- CONFIG ---
 const API_URL = 'https://script.google.com/macros/s/AKfycbwa7-PhUsp9jwF1huZvDejumsMW0CkOEkmAQd3WrFqw_4Ads_CByk3CmKVrGsOYrb24/exec';
 
+// Øvelses-konfiguration — tilføj nye øvelser her for at udvide appen
+const EXERCISES = [
+  { id: 'pushup', name: 'Armbøjninger', emoji: '💪', defaultEstMax: 15, defaultSecsPerRep: 3.5 },
+  { id: 'pullup', name: 'Pull-ups',     emoji: '🏋️', defaultEstMax: 3,  defaultSecsPerRep: 4.0 },
+];
+
+function defaultProgram() {
+  const prog = {};
+  EXERCISES.forEach(ex => {
+    prog[ex.id] = { estMax: ex.defaultEstMax, sets: 5, secsPerRep: ex.defaultSecsPerRep, selected: true };
+  });
+  return prog;
+}
+
 // --- STATE ---
-let state = {
-  workouts: [],
-  program: { pushup: 10, pullup: 5, pushupSets: 3, pullupSets: 3 }
+let state = { workouts: [], program: defaultProgram() };
+
+let session = {
+  plan: [], currentIdx: 0, actualReps: [], setDurations: [],
+  setStartTime: null, workoutStartTime: null,
+  feel: null, restSeconds: 0, restTimer: null,
+  pushupSets: [], pullupSets: [], pushPeak: 0, pullPeak: 0
 };
-let session = { pushupSets: [], pullupSets: [], feel: null };
 
+// --- INIT ---
 function load() {
-  const saved = localStorage.getItem('workout-tracker-v1');
+  const saved = localStorage.getItem('workout-tracker-v2');
   if (saved) {
-    const parsed = JSON.parse(saved);
-    state.program = parsed.program || state.program;
-    // workouts comes from sheets, not localStorage
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed.program) {
+        state.program = parsed.program;
+        // Migrér fra gammel format som brugte state.program.selected = {}
+        if (state.program.selected) {
+          EXERCISES.forEach(ex => {
+            if (state.program[ex.id] && state.program.selected[ex.id] !== undefined) {
+              state.program[ex.id].selected = state.program.selected[ex.id];
+            }
+          });
+          delete state.program.selected;
+        }
+        // Tilføj manglende felter fra nye øvelser
+        EXERCISES.forEach(ex => {
+          if (!state.program[ex.id]) {
+            state.program[ex.id] = { estMax: ex.defaultEstMax, sets: 5, secsPerRep: ex.defaultSecsPerRep, selected: true };
+          }
+          if (state.program[ex.id].secsPerRep === undefined) state.program[ex.id].secsPerRep = ex.defaultSecsPerRep;
+          if (state.program[ex.id].selected === undefined) state.program[ex.id].selected = true;
+        });
+      }
+    } catch(e) {}
   }
-}
-function saveLocal() {
-  localStorage.setItem('workout-tracker-v1', JSON.stringify({ program: state.program }));
+  document.getElementById('log-date').textContent =
+    new Date().toLocaleDateString('da-DK', { weekday: 'long', day: 'numeric', month: 'long' });
+  renderIdlePhase();
 }
 
+function saveLocal() {
+  localStorage.setItem('workout-tracker-v2', JSON.stringify({ program: state.program }));
+}
+
+// --- HJÆLPERE ---
+function bellCurve(estMax, numSets) {
+  if (numSets === 1) return [Math.max(1, Math.round(estMax * 0.70))];
+  const minPct   = estMax >= 8 ? 0.55 : 0.40;
+  const rangePct = estMax >= 8 ? 0.25 : 0.30;
+  return Array.from({ length: numSets }, (_, i) => {
+    const t = Math.sin((i / (numSets - 1)) * Math.PI);
+    return Math.max(1, Math.round(estMax * (minPct + rangePct * t)));
+  });
+}
+
+function peakIdx(curve) {
+  return curve.reduce((best, v, i) => v > curve[best] ? i : best, 0);
+}
+
+function fmtTime(secs) {
+  const m = Math.floor(secs / 60), s = Math.round(secs % 60);
+  if (m === 0) return `${s}s`;
+  if (s === 0) return `${m} min`;
+  return `${m} min ${s}s`;
+}
+
+function estimateTime(plan) {
+  let setTime = 0, restTime = 0;
+  plan.forEach((step, i) => {
+    setTime += step.suggested * state.program[step.ex].secsPerRep;
+    if (i < plan.length - 1) restTime += plan[i].ex === plan[i + 1].ex ? 90 : 60;
+  });
+  return { setTime: Math.round(setTime), restTime, total: Math.round(setTime + restTime) };
+}
+
+// --- API ---
 async function fetchWorkouts() {
   try {
     showToast('Henter data...');
@@ -449,29 +513,78 @@ async function fetchWorkouts() {
       date: w.date,
       pushupSets: w.pushupSets ? String(w.pushupSets).split(',').map(Number).filter(n => !isNaN(n)) : [],
       pullupSets: w.pullupSets ? String(w.pullupSets).split(',').map(Number).filter(n => !isNaN(n)) : [],
-      feel: w.feel || null
+      feel: w.feel || null,
+      hidden: w.hidden === true || w.hidden === 'TRUE'
     }));
   } catch(e) {
-    showToast('Kunne ikke hente data – tjek internetforbindelse');
+    showToast('Kunne ikke hente data');
   }
 }
 
 async function postWorkout(workout) {
-  const payload = {
-    date: workout.date,
-    pushupSets: workout.pushupSets.join(','),
-    pushupTotal: workout.pushupSets.reduce((a,b)=>a+b,0),
-    pullupSets: workout.pullupSets.join(','),
-    pullupTotal: workout.pullupSets.reduce((a,b)=>a+b,0),
-    feel: workout.feel || ''
-  };
   await fetch(API_URL, {
     method: 'POST',
-    body: JSON.stringify(payload)
+    body: JSON.stringify({
+      date: workout.date,
+      pushupSets:  workout.pushupSets.join(','),
+      pushupTotal: workout.pushupSets.reduce((a, b) => a + b, 0),
+      pullupSets:  workout.pullupSets.join(','),
+      pullupTotal: workout.pullupSets.reduce((a, b) => a + b, 0),
+      feel: workout.feel || ''
+    })
   });
 }
 
-load();
+let pendingDelete = null;
+let pendingDeleteTimer = null;
+
+function deleteWorkout(date) {
+  const workout = state.workouts.find(w => w.date === date);
+  if (!workout) return;
+  state.workouts = state.workouts.filter(w => w.date !== date);
+  renderHistory();
+
+  // Annullér evt. tidligere ventende sletning
+  if (pendingDelete) commitDelete();
+  pendingDelete = { date, workout };
+  document.getElementById('undo-bar').style.display = 'flex';
+  pendingDeleteTimer = setTimeout(commitDelete, 5000);
+}
+
+function undoDelete() {
+  if (!pendingDelete) return;
+  clearTimeout(pendingDeleteTimer);
+  state.workouts.push(pendingDelete.workout);
+  state.workouts.sort((a, b) => new Date(a.date) - new Date(b.date));
+  pendingDelete = null;
+  document.getElementById('undo-bar').style.display = 'none';
+  renderHistory();
+}
+
+async function commitDelete() {
+  clearTimeout(pendingDeleteTimer);
+  document.getElementById('undo-bar').style.display = 'none';
+  if (!pendingDelete) return;
+  const date = pendingDelete.date;
+  pendingDelete = null;
+  try {
+    await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'delete', date }) });
+  } catch(e) { showToast('Sletning fejlede – prøv igen'); }
+}
+
+async function toggleHidden(date) {
+  const workout = state.workouts.find(w => w.date === date);
+  if (!workout) return;
+  workout.hidden = !workout.hidden;
+  renderHistory();
+  try {
+    await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'toggle-hidden', date }) });
+  } catch(e) {
+    workout.hidden = !workout.hidden;
+    renderHistory();
+    showToast('Fejl – prøv igen');
+  }
+}
 
 // --- NAV ---
 function goTo(page) {
@@ -479,275 +592,457 @@ function goTo(page) {
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
   document.getElementById('nav-' + page).classList.add('active');
-  if (page === 'history') { fetchWorkouts().then(renderHistory); }
-  if (page === 'program') renderProgram();
-  if (page === 'log') renderLogHints();
+  if (page === 'history') fetchWorkouts().then(renderHistory);
+  if (page === 'program') renderProgramPage();
 }
 
-// --- LOG PAGE ---
-function renderLogHints() {
-  const p = state.program;
-  document.getElementById('pushup-goal-hint').textContent = `Mål: ${p.pushup} reps × ${p.pushupSets} sæt`;
-  document.getElementById('pullup-goal-hint').textContent = `Mål: ${p.pullup} reps × ${p.pullupSets} sæt`;
-  document.getElementById('log-date').textContent = new Date().toLocaleDateString('da-DK', { weekday:'long', day:'numeric', month:'long' });
-}
-renderLogHints();
-
-function adjust(ex, delta) {
-  const el = document.getElementById(ex + '-input');
-  el.value = Math.max(0, (parseInt(el.value) || 0) + delta);
+// --- IDLE ---
+function toggleExercise(id) {
+  state.program[id].selected = !state.program[id].selected;
+  saveLocal();
+  renderIdlePhase();
 }
 
-function addSet(ex) {
-  const val = parseInt(document.getElementById(ex + '-input').value) || 0;
-  if (val <= 0) return;
-  session[ex + 'Sets'].push(val);
-  renderSets(ex);
+function renderIdlePhase() {
+  showPhase('idle');
+
+  // Toggles (genereret fra EXERCISES array — skalerer automatisk)
+  document.getElementById('toggle-row').innerHTML = EXERCISES.map(ex => {
+    const on = state.program[ex.id].selected;
+    return `<div class="ex-toggle ${on ? 'on' : 'off'}" onclick="toggleExercise('${ex.id}')">
+      <span class="ex-toggle-emoji">${ex.emoji}</span>
+      <span class="ex-toggle-name">${ex.name}</span>
+    </div>`;
+  }).join('');
+
+  const plan = buildPlan();
+
+  if (!plan.length) {
+    document.getElementById('workout-preview').innerHTML =
+      '<div style="color:var(--muted);font-size:14px;padding:8px 0;">Vælg mindst én øvelse herover</div>';
+    document.getElementById('rest-info').textContent = '';
+    document.getElementById('time-main').textContent = '—';
+    document.getElementById('time-break').textContent = '';
+    return;
+  }
+
+  // Bell curve preview for valgte øvelser
+  let previewHTML = '';
+  EXERCISES.forEach(ex => {
+    const p = state.program[ex.id];
+    if (!p.selected) return;
+    const curve = bellCurve(p.estMax, p.sets);
+    const peak = peakIdx(curve);
+    previewHTML += `
+      <div class="preview-row">
+        <div>
+          <div class="preview-name">${ex.emoji} ${ex.name}</div>
+          <div class="preview-meta">${p.sets} sæt · ${curve.reduce((a,b)=>a+b,0)} reps total</div>
+        </div>
+        <div class="bell-chips">
+          ${curve.map((r,i) => `<span class="bell-chip${i===peak?' peak':''}">${r}</span>`).join('')}
+        </div>
+      </div>`;
+  });
+  document.getElementById('workout-preview').innerHTML = previewHTML;
+
+  const selectedCount = EXERCISES.filter(ex => state.program[ex.id].selected).length;
+  document.getElementById('rest-info').textContent = selectedCount > 1
+    ? 'Hvile: 60s ved skift · 90s ved samme øvelse i træk'
+    : 'Hvile: 90s mellem sæt';
+
+  const est = estimateTime(plan);
+  document.getElementById('time-main').textContent = `Ca. ${fmtTime(est.total)}`;
+  document.getElementById('time-break').textContent = `Øvelser ~${fmtTime(est.setTime)} · Hvile ~${fmtTime(est.restTime)}`;
 }
 
-function renderSets(ex) {
-  const sets = session[ex + 'Sets'];
-  const container = document.getElementById(ex + '-sets');
-  container.innerHTML = sets.map((reps, i) => `
-    <div class="set-row">
-      <div class="set-badge">Sæt ${i+1}: <strong>${reps}</strong> reps</div>
-      <button class="set-delete" onclick="deleteSet('${ex}', ${i})">✕</button>
-    </div>
-  `).join('') + (sets.length > 0 ? `<p style="font-size:13px;color:var(--muted);margin-top:6px;">Total: <strong style="color:var(--text)">${sets.reduce((a,b)=>a+b,0)}</strong> reps</p>` : '');
+// --- WORKOUT FLOW ---
+function buildPlan() {
+  const curves = {};
+  EXERCISES.forEach(ex => {
+    const p = state.program[ex.id];
+    curves[ex.id] = p.selected ? bellCurve(p.estMax, p.sets) : [];
+  });
+  const plan = [];
+  const maxLen = Math.max(...EXERCISES.map(ex => curves[ex.id].length));
+  for (let i = 0; i < maxLen; i++) {
+    EXERCISES.forEach(ex => {
+      const c = curves[ex.id];
+      if (i < c.length) plan.push({ ex: ex.id, suggested: c[i], setNum: i + 1, totalSets: c.length });
+    });
+  }
+  return plan;
 }
 
-function deleteSet(ex, i) {
-  session[ex + 'Sets'].splice(i, 1);
-  renderSets(ex);
+function startWorkout() {
+  const plan = buildPlan();
+  if (!plan.length) { showToast('Vælg mindst én øvelse'); return; }
+  session = {
+    plan, currentIdx: 0, actualReps: [], setDurations: [],
+    setStartTime: null, workoutStartTime: Date.now(),
+    feel: null, restSeconds: 0, restTimer: null,
+    pushupSets: [], pullupSets: [], pushPeak: 0, pullPeak: 0
+  };
+  renderPlanStrip();
+  showCurrentSet();
 }
 
-let currentFeel = null;
+// Plan-strip: viser overblik over hele programmet, altid synlig under træning
+function renderPlanStrip() {
+  EXERCISES.forEach(ex => {
+    const row = document.getElementById('strip-row-' + ex.id);
+    if (!row) return;
+
+    const steps = session.plan
+      .map((s, i) => ({ ...s, planIdx: i }))
+      .filter(s => s.ex === ex.id);
+
+    if (!steps.length) { row.style.display = 'none'; return; }
+    row.style.display = 'flex';
+
+    const isPull = ex.id === 'pullup';
+    const dots = steps.map(step => {
+      const done    = step.planIdx < session.currentIdx;
+      const current = step.planIdx === session.currentIdx;
+      let cls = 'ex-dot';
+      if (done)    cls += isPull ? ' pull-done'    : ' done';
+      else if (current) cls += isPull ? ' pull-current' : ' current';
+      return `<div class="${cls}">${done ? '✓' : step.suggested}</div>`;
+    }).join('');
+
+    row.innerHTML = `<span class="ex-progress-label">${ex.emoji}</span><div class="ex-progress-dots">${dots}</div>`;
+  });
+}
+
+function showCurrentSet() {
+  showPhase('active');
+  renderPlanStrip();
+  session.setStartTime = Date.now();
+
+  const step = session.plan[session.currentIdx];
+  const total = session.plan.length;
+
+  document.getElementById('progress-fill').style.width = (session.currentIdx / total * 100) + '%';
+  document.getElementById('progress-label').textContent = `${session.currentIdx + 1} / ${total}`;
+
+  const exDef = EXERCISES.find(e => e.id === step.ex);
+  document.getElementById('set-emoji').textContent    = exDef.emoji;
+  document.getElementById('set-name').textContent     = exDef.name;
+  document.getElementById('set-sublabel').textContent = `Sæt ${step.setNum} af ${step.totalSets}`;
+  document.getElementById('set-suggested').textContent = step.suggested;
+  document.getElementById('actual-reps').textContent   = step.suggested;
+}
+
+function adjustActual(delta) {
+  const el = document.getElementById('actual-reps');
+  el.textContent = Math.max(0, parseInt(el.textContent) + delta);
+}
+
+function completeSet() {
+  const actual = parseInt(document.getElementById('actual-reps').textContent) || 0;
+  session.actualReps.push(actual);
+
+  if (session.setStartTime) {
+    const elapsed = (Date.now() - session.setStartTime) / 1000;
+    const step = session.plan[session.currentIdx];
+    session.setDurations.push({ ex: step.ex, elapsed, reps: actual, secsPerRep: actual > 0 ? elapsed / actual : null });
+  }
+
+  session.currentIdx++;
+  if (session.currentIdx >= session.plan.length) { finishWorkout(); return; }
+
+  const prev = session.plan[session.currentIdx - 1];
+  const next = session.plan[session.currentIdx];
+  const secs = prev.ex === next.ex ? 90 : 60;
+  startRest(secs, next, prev.ex === next.ex);
+}
+
+function startRest(secs, nextStep, sameExercise) {
+  showPhase('rest');
+  renderPlanStrip();
+  session.restSeconds = secs;
+
+  const exDef = EXERCISES.find(e => e.id === nextStep.ex);
+  document.getElementById('next-up-val').textContent = `${exDef.emoji} ${exDef.name} × ${nextStep.suggested} reps`;
+  document.getElementById('rest-reason').textContent = sameExercise ? '90s — samme øvelse' : '60s — skift af øvelse';
+
+  if (session.restTimer) clearInterval(session.restTimer);
+  updateCountdown();
+  session.restTimer = setInterval(() => {
+    session.restSeconds--;
+    if (session.restSeconds <= 0) {
+      clearInterval(session.restTimer); session.restTimer = null;
+      showCurrentSet();
+    } else { updateCountdown(); }
+  }, 1000);
+}
+
+function updateCountdown() {
+  const el = document.getElementById('countdown-num');
+  el.textContent = session.restSeconds;
+  el.className = 'countdown-num' + (session.restSeconds <= 10 ? ' urgent' : '');
+}
+
+function adjustRestTime(delta) {
+  session.restSeconds = Math.max(5, session.restSeconds + delta);
+  updateCountdown();
+}
+
+function skipRest() {
+  if (session.restTimer) { clearInterval(session.restTimer); session.restTimer = null; }
+  showCurrentSet();
+}
+
+function finishWorkout() {
+  showPhase('complete');
+  const withActual = session.plan.map((s, i) => ({ ...s, actual: session.actualReps[i] }));
+  const pushSteps  = withActual.filter(s => s.ex === 'pushup');
+  const pullSteps  = withActual.filter(s => s.ex === 'pullup');
+
+  session.pushupSets = pushSteps.map(s => s.actual);
+  session.pullupSets = pullSteps.map(s => s.actual);
+  session.pushPeak   = pushSteps.length ? Math.max(...pushSteps.map(s => s.actual)) : 0;
+  session.pullPeak   = pullSteps.length ? Math.max(...pullSteps.map(s => s.actual)) : 0;
+
+  const pushTotal  = session.pushupSets.reduce((a, b) => a + b, 0);
+  const pullTotal  = session.pullupSets.reduce((a, b) => a + b, 0);
+  const totalSecs  = Math.round((Date.now() - session.workoutStartTime) / 1000);
+
+  document.getElementById('complete-summary').innerHTML = `
+    <div class="card-title">Opsummering</div>
+    ${pushSteps.length ? `<div class="summary-row"><span class="summary-label">💪 Armbøjninger</span><span class="summary-val">${pushSteps.length} sæt · ${pushTotal} reps (peak: ${session.pushPeak})</span></div>` : ''}
+    ${pullSteps.length ? `<div class="summary-row"><span class="summary-label">🏋️ Pull-ups</span><span class="summary-val">${pullSteps.length} sæt · ${pullTotal} reps (peak: ${session.pullPeak})</span></div>` : ''}
+    <div class="summary-row"><span class="summary-label">⏱ Faktisk tid</span><span class="summary-val">${fmtTime(totalSecs)}</span></div>
+  `;
+}
+
 function setFeel(feel) {
-  currentFeel = feel;
-  const labels = { easy: '😊 Let — overvejer at øge næste gang', ok: '😐 Passende — hold programmet', hard: '😤 Hårdt — overvejer at sænke lidt' };
-  document.getElementById('feel-display').textContent = labels[feel];
+  session.feel = feel;
+  ['easy', 'ok', 'hard'].forEach(f =>
+    document.getElementById('feel-' + f).classList.toggle('tag-selected', f === feel));
 }
 
 async function saveWorkout() {
-  if (session.pushupSets.length === 0 && session.pullupSets.length === 0) {
-    showToast('Tilføj mindst ét sæt først');
-    return;
-  }
+  if (!session.feel) { showToast('Vælg venligst en følelse'); return; }
   const workout = {
     date: new Date().toISOString(),
-    pushupSets: [...session.pushupSets],
-    pullupSets: [...session.pullupSets],
-    feel: currentFeel
+    pushupSets: session.pushupSets, pullupSets: session.pullupSets, feel: session.feel
   };
-
   showToast('Gemmer...');
   try {
     await postWorkout(workout);
     state.workouts.push(workout);
   } catch(e) {
-    showToast('Fejl ved gemning – prøv igen');
-    return;
+    showToast('Fejl ved gemning – prøv igen'); return;
   }
-
-  // Reset session
-  session = { pushupSets: [], pullupSets: [], feel: null };
-  renderSets('pushup'); renderSets('pullup');
-  document.getElementById('feel-display').textContent = '';
-  currentFeel = null;
-
-  showToast('Træning gemt i Google Sheets! 💪');
+  updateEstMax(session.feel, session.pushPeak, session.pullPeak);
+  updateSecsPerRep();
+  if (session.restTimer) clearInterval(session.restTimer);
+  session = { plan:[], currentIdx:0, actualReps:[], setDurations:[], setStartTime:null, workoutStartTime:null,
+    feel:null, restSeconds:0, restTimer:null, pushupSets:[], pullupSets:[], pushPeak:0, pullPeak:0 };
+  showToast('Gemt! Progression opdateret 💪');
+  goTo('history');
 }
 
-// --- HISTORY PAGE ---
+function updateEstMax(feel, pushPeak, pullPeak) {
+  const bonus = { easy: 2, ok: 1, hard: 0 }[feel] || 0;
+  if (pushPeak > 0) state.program.pushup.estMax = Math.max(1, Math.round(pushPeak / 0.80) + bonus);
+  if (pullPeak > 0) state.program.pullup.estMax = Math.max(1, Math.round(pullPeak / 0.80) + bonus);
+  saveLocal();
+}
+
+function updateSecsPerRep() {
+  EXERCISES.forEach(ex => {
+    const valid = session.setDurations.filter(d => d.ex === ex.id && d.secsPerRep !== null && d.reps >= 3);
+    if (!valid.length) return;
+    const avg = valid.reduce((a, d) => a + d.secsPerRep, 0) / valid.length;
+    if (avg >= 1 && avg <= 12) {
+      state.program[ex.id].secsPerRep = Math.round((0.7 * state.program[ex.id].secsPerRep + 0.3 * avg) * 10) / 10;
+    }
+  });
+  saveLocal();
+}
+
+function discardWorkout() {
+  if (session.restTimer) clearInterval(session.restTimer);
+  session = { plan:[], currentIdx:0, actualReps:[], setDurations:[], setStartTime:null, workoutStartTime:null,
+    feel:null, restSeconds:0, restTimer:null, pushupSets:[], pullupSets:[], pushPeak:0, pullPeak:0 };
+  renderIdlePhase();
+}
+
+// --- PROGRAM PAGE ---
+function renderProgramPage() {
+  document.getElementById('program-exercise-cards').innerHTML = EXERCISES.map(ex => {
+    const p = state.program[ex.id];
+    const curve = bellCurve(p.estMax, p.sets);
+    const peak = peakIdx(curve);
+    return `
+      <div class="card">
+        <div class="card-title">${ex.emoji} ${ex.name}</div>
+        <div class="program-row">
+          <div class="program-name">Estimeret max<span>reps i ét sæt</span></div>
+          <div class="estmax-counter">
+            <button class="estmax-btn" onclick="adjustEstMax('${ex.id}',-1)">−</button>
+            <span class="estmax-val" id="prog-${ex.id}-max">${p.estMax}</span>
+            <button class="estmax-btn" onclick="adjustEstMax('${ex.id}',1)">+</button>
+          </div>
+        </div>
+        <div class="program-row">
+          <div class="program-name">Sæt per session</div>
+          <input class="program-input" type="number" id="prog-${ex.id}-sets" min="1" max="10" value="${p.sets}">
+        </div>
+        <div class="program-row">
+          <div class="program-name">Sek pr rep<span>bruges til tidsestimat</span></div>
+          <input class="program-input" type="number" id="prog-${ex.id}-spr" min="1" max="15" step="0.5" value="${p.secsPerRep}">
+        </div>
+        <div class="bell-preview-wrap">
+          <div class="bell-preview-label">Næste workout:</div>
+          <div class="bell-chips" id="${ex.id}-bell-preview">
+            ${curve.map((r,i) => `<span class="bell-chip${i===peak?' peak':''}">${r}</span>`).join('')}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function adjustEstMax(id, delta) {
+  state.program[id].estMax = Math.max(1, state.program[id].estMax + delta);
+  document.getElementById('prog-' + id + '-max').textContent = state.program[id].estMax;
+  const p = state.program[id];
+  const curve = bellCurve(p.estMax, p.sets);
+  const peak = peakIdx(curve);
+  document.getElementById(id + '-bell-preview').innerHTML =
+    curve.map((r, i) => `<span class="bell-chip${i===peak?' peak':''}">${r}</span>`).join('');
+  saveLocal();
+}
+
+function saveProgram() {
+  EXERCISES.forEach(ex => {
+    state.program[ex.id].sets       = Math.max(1, parseInt(document.getElementById(`prog-${ex.id}-sets`).value) || 5);
+    state.program[ex.id].secsPerRep = Math.max(1, parseFloat(document.getElementById(`prog-${ex.id}-spr`).value) || ex.defaultSecsPerRep);
+  });
+  saveLocal();
+  renderProgramPage();
+  showToast('Program gemt!');
+}
+
+function clearAll() {
+  if (!confirm('Nulstil al lokal data til standard?')) return;
+  state.program = defaultProgram();
+  saveLocal();
+  renderProgramPage();
+  showToast('Nulstillet');
+}
+
+// --- HISTORY ---
 function renderHistory() {
   const workouts = [...state.workouts].reverse();
+  const visible = workouts.filter(w => !w.hidden);
+  const pushTotals = visible.map(w => w.pushupSets.reduce((a,b)=>a+b,0));
+  const pullTotals = visible.map(w => w.pullupSets.reduce((a,b)=>a+b,0));
+  document.getElementById('stat-total').textContent      = visible.length;
+  document.getElementById('stat-pushup-max').textContent = pushTotals.length ? Math.max(...pushTotals) : 0;
+  document.getElementById('stat-pullup-max').textContent = pullTotals.length ? Math.max(...pullTotals) : 0;
 
-  // Stats
-  const totalPushups = workouts.map(w => w.pushupSets.reduce((a,b)=>a+b,0));
-  const totalPullups = workouts.map(w => w.pullupSets.reduce((a,b)=>a+b,0));
-  document.getElementById('stat-total').textContent = workouts.length;
-  document.getElementById('stat-pushup-max').textContent = totalPushups.length ? Math.max(...totalPushups) : 0;
-  document.getElementById('stat-pullup-max').textContent = totalPullups.length ? Math.max(...totalPullups) : 0;
-
-  // History list
   const list = document.getElementById('history-list');
   if (!workouts.length) {
     list.innerHTML = '<div class="empty-state">Ingen træninger endnu.<br>Log din første efter en løbetur!</div>';
   } else {
-    list.innerHTML = workouts.slice(0, 15).map(w => {
+    list.innerHTML = workouts.slice(0, 30).map(w => {
       const d = new Date(w.date);
       const dateStr = d.toLocaleDateString('da-DK', { weekday:'short', day:'numeric', month:'short' });
       const pushTotal = w.pushupSets.reduce((a,b)=>a+b,0);
       const pullTotal = w.pullupSets.reduce((a,b)=>a+b,0);
       const feelEmoji = { easy:'😊', ok:'😐', hard:'😤' }[w.feel] || '';
-      return `
-        <div class="history-entry">
-          <div class="history-date">${dateStr} ${feelEmoji}</div>
-          <div class="history-exercises">
-            ${pushTotal ? `<div class="history-pill">💪 <strong>${pushTotal}</strong> reps (${w.pushupSets.length} sæt)</div>` : ''}
-            ${pullTotal ? `<div class="history-pill">🏋️ <strong>${pullTotal}</strong> reps (${w.pullupSets.length} sæt)</div>` : ''}
+      const hiddenTag = w.hidden ? '<span style="font-size:10px;color:var(--muted);background:var(--surface);padding:2px 6px;border-radius:4px;margin-left:6px;">tæller ikke</span>' : '';
+      return `<div class="history-entry${w.hidden ? ' hidden-entry' : ''}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div class="history-date">${dateStr} ${feelEmoji}${hiddenTag}</div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <button onclick="toggleHidden('${w.date}')" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px;font-weight:600;padding:0;">${w.hidden ? 'Vis' : 'Skjul'}</button>
+            <button onclick="deleteWorkout('${w.date}')" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:0;line-height:1;">✕</button>
           </div>
         </div>
-      `;
+        <div class="history-pills">
+          ${pushTotal ? `<div class="history-pill">💪 <strong>${pushTotal}</strong> reps (${w.pushupSets.length} sæt)</div>` : ''}
+          ${pullTotal ? `<div class="history-pill">🏋️ <strong>${pullTotal}</strong> reps (${w.pullupSets.length} sæt)</div>` : ''}
+        </div>
+      </div>`;
     }).join('');
   }
-
-  // Charts
-  const sorted = [...state.workouts];
-  const labels = sorted.map(w => new Date(w.date).toLocaleDateString('da-DK', {day:'numeric',month:'short'}));
-  const pushData = sorted.map(w => w.pushupSets.reduce((a,b)=>a+b,0));
-  const pullData = sorted.map(w => w.pullupSets.reduce((a,b)=>a+b,0));
-
-  drawChart('chart-pushup', labels, pushData, '#6c63ff');
-  drawChart('chart-pullup', labels, pullData, '#ff6584');
+  const sorted = [...state.workouts].filter(w => !w.hidden);
+  const fmt = w => new Date(w.date).toLocaleDateString('da-DK', { day:'numeric', month:'short' });
+  const pushSessions = sorted.filter(w => w.pushupSets.reduce((a,b)=>a+b,0) > 0);
+  const pullSessions = sorted.filter(w => w.pullupSets.reduce((a,b)=>a+b,0) > 0);
+  drawChart('chart-pushup', pushSessions.map(fmt), pushSessions.map(w => w.pushupSets.reduce((a,b)=>a+b,0)), '#6c63ff');
+  drawChart('chart-pullup', pullSessions.map(fmt), pullSessions.map(w => w.pullupSets.reduce((a,b)=>a+b,0)), '#ff6584');
 }
 
 function drawChart(id, labels, data, color) {
   const canvas = document.getElementById(id);
   const ctx = canvas.getContext('2d');
-  const W = canvas.parentElement.clientWidth;
-  const H = 120;
-  canvas.width = W * window.devicePixelRatio;
+  const W = canvas.parentElement.clientWidth, H = 120;
+  canvas.width  = W * window.devicePixelRatio;
   canvas.height = H * window.devicePixelRatio;
-  canvas.style.width = W + 'px';
-  canvas.style.height = H + 'px';
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
   ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-
   ctx.clearRect(0, 0, W, H);
-
   if (!data.length) {
-    ctx.fillStyle = '#888899';
-    ctx.font = '13px -apple-system, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Ingen data endnu', W/2, H/2);
-    return;
+    ctx.fillStyle = '#888899'; ctx.font = '13px -apple-system, sans-serif';
+    ctx.textAlign = 'center'; ctx.fillText('Ingen data endnu', W/2, H/2); return;
   }
-
-  const pad = { top: 10, right: 10, bottom: 24, left: 30 };
-  const cw = W - pad.left - pad.right;
-  const ch = H - pad.top - pad.bottom;
+  const pad = { top:10, right:10, bottom:24, left:30 };
+  const cw = W - pad.left - pad.right, ch = H - pad.top - pad.bottom;
   const max = Math.max(...data, 1);
-
-  // Grid lines
-  ctx.strokeStyle = '#2e2e3a';
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = '#2e2e3a'; ctx.lineWidth = 1;
   [0, 0.5, 1].forEach(t => {
     const y = pad.top + ch * (1 - t);
     ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
-    ctx.fillStyle = '#888899';
-    ctx.font = '10px -apple-system, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(Math.round(max * t), pad.left - 4, y + 4);
+    ctx.fillStyle = '#888899'; ctx.font = '10px -apple-system, sans-serif';
+    ctx.textAlign = 'right'; ctx.fillText(Math.round(max * t), pad.left - 4, y + 4);
   });
-
   if (data.length === 1) {
-    const x = pad.left + cw / 2;
-    const y = pad.top + ch * (1 - data[0] / max);
-    ctx.beginPath();
-    ctx.arc(x, y, 5, 0, Math.PI * 2);
-    ctx.fillStyle = color;
-    ctx.fill();
+    const x = pad.left + cw/2, y = pad.top + ch * (1 - data[0]/max);
+    ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI*2); ctx.fillStyle = color; ctx.fill();
   } else {
-    // Line
-    ctx.beginPath();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2.5;
-    ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
     data.forEach((v, i) => {
-      const x = pad.left + (i / (data.length - 1)) * cw;
-      const y = pad.top + ch * (1 - v / max);
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      const x = pad.left + (i/(data.length-1))*cw, y = pad.top + ch*(1-v/max);
+      i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
     });
     ctx.stroke();
-
-    // Fill
-    ctx.lineTo(pad.left + cw, pad.top + ch);
-    ctx.lineTo(pad.left, pad.top + ch);
-    ctx.closePath();
-    ctx.fillStyle = color + '22';
-    ctx.fill();
-
-    // Dots
+    ctx.lineTo(pad.left+cw, pad.top+ch); ctx.lineTo(pad.left, pad.top+ch);
+    ctx.closePath(); ctx.fillStyle = color + '22'; ctx.fill();
     data.forEach((v, i) => {
-      const x = pad.left + (i / (data.length - 1)) * cw;
-      const y = pad.top + ch * (1 - v / max);
-      ctx.beginPath();
-      ctx.arc(x, y, 4, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
+      const x = pad.left + (i/(data.length-1))*cw, y = pad.top + ch*(1-v/max);
+      ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fillStyle = color; ctx.fill();
     });
   }
-
-  // X labels (first, last, and midpoints if space)
-  ctx.fillStyle = '#888899';
-  ctx.font = '10px -apple-system, sans-serif';
-  ctx.textAlign = 'center';
-  const step = Math.max(1, Math.ceil(data.length / 5));
+  ctx.fillStyle = '#888899'; ctx.font = '10px -apple-system, sans-serif'; ctx.textAlign = 'center';
+  const step = Math.max(1, Math.ceil(data.length/5));
   labels.forEach((l, i) => {
-    if (i % step === 0 || i === data.length - 1) {
-      const x = data.length === 1 ? pad.left + cw / 2 : pad.left + (i / (data.length - 1)) * cw;
-      ctx.fillText(l, x, H - 4);
+    if (i % step === 0 || i === data.length-1) {
+      const x = data.length===1 ? pad.left+cw/2 : pad.left+(i/(data.length-1))*cw;
+      ctx.fillText(l, x, H-4);
     }
   });
 }
 
-// --- PROGRAM PAGE ---
-function renderProgram() {
-  const p = state.program;
-  document.getElementById('prog-pushup').value = p.pushup;
-  document.getElementById('prog-pullup').value = p.pullup;
-  document.getElementById('prog-pushup-sets').value = p.pushupSets;
-  document.getElementById('prog-pullup-sets').value = p.pullupSets;
-
-  // Show suggestions based on recent feels
-  const recent = state.workouts.slice(-5).map(w => w.feel).filter(Boolean);
-  if (recent.length >= 2) {
-    const card = document.getElementById('suggestion-card');
-    const txt = document.getElementById('suggestion-text');
-    const hardCount = recent.filter(f => f === 'hard').length;
-    const easyCount = recent.filter(f => f === 'easy').length;
-    if (hardCount >= 2) {
-      card.style.display = 'block';
-      txt.textContent = `Du har markeret ${hardCount} af de seneste ${recent.length} træninger som hårde. Overvej at sænke reps med 10-15% og arbejde dig op igen.`;
-    } else if (easyCount >= 2) {
-      card.style.display = 'block';
-      txt.textContent = `Du har markeret ${easyCount} af de seneste ${recent.length} træninger som lette. Prøv at øge reps med 5-10% — du er klar til næste niveau!`;
-    } else {
-      card.style.display = 'none';
-    }
-  }
+// --- UTILS ---
+function showPhase(phase) {
+  ['idle','active','rest','complete'].forEach(p =>
+    document.getElementById('phase-'+p).style.display = p===phase ? 'block' : 'none');
+  document.getElementById('workout-strip').style.display =
+    (phase === 'active' || phase === 'rest') ? 'block' : 'none';
 }
 
-function saveProgram() {
-  state.program = {
-    pushup: parseInt(document.getElementById('prog-pushup').value) || 10,
-    pullup: parseInt(document.getElementById('prog-pullup').value) || 5,
-    pushupSets: parseInt(document.getElementById('prog-pushup-sets').value) || 3,
-    pullupSets: parseInt(document.getElementById('prog-pullup-sets').value) || 3,
-  };
-  saveLocal();
-  renderLogHints();
-  showToast('Program gemt!');
-}
-
-function updateSuggestion(feel) {
-  // Just trigger re-render next time user visits program
-}
-
-function clearAll() {
-  if (!confirm('Sikker på du vil slette al data?')) return;
-  state.workouts = [];
-  save();
-  showToast('Al data slettet');
-}
-
-// --- TOAST ---
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2200);
 }
+
+load();
 </script>
 </body>
 </html>
